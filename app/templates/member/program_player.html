@@ -1,0 +1,48 @@
+{% extends "shared/app_base.html" %}
+{% set active_nav = 'dashboard' %}
+{% from "shared/ring.html" import progress_ring %}
+{% block app_content %}
+<div style="display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;">
+  <div>
+    <span class="kicker">{{ program['category']|replace('_',' ') }}</span>
+    <h1 style="font-size:26px;margin-top:6px;">{{ program['name'] }}</h1>
+    <p style="color:var(--muted);font-size:13.5px;margin-top:4px;">{{ done_count }} of {{ total }} workouts complete</p>
+  </div>
+  {{ progress_ring(percent, 90, 8) }}
+</div>
+
+{% if percent >= 50 and not program['is_membership'] %}
+<div class="card" style="margin-top:28px;padding:22px 26px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;border-color:var(--gold);">
+  <div>
+    <span class="kicker" style="color:var(--gold-soft);">YOU'VE COMPLETED {{ percent }}% OF {{ program['name']|upper }}</span>
+    <p style="margin-top:6px;font-size:14px;color:var(--muted);max-width:480px;">Coach Tia+ unlocks every other program in the library too — FitBox, Glute Growth, Resistance Bar and more, all included.</p>
+  </div>
+  <a href="{{ url_for('public.program_detail', slug='coach-tia-plus') }}" class="btn btn-primary" style="flex-shrink:0;">See Coach Tia+</a>
+</div>
+{% endif %}
+
+<div style="margin-top:32px;">
+  {% for row in workout_rows %}
+    {% set w = row.workout %}
+    <div class="workout-row {{ 'done' if row.done else '' }} {{ 'locked' if not row.unlocked else '' }}">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <span class="workout-num">{{ '%02d'|format(w['order_index']) }}</span>
+        <div>
+          <div style="font-weight:600;">{{ w['title'] }}</div>
+          <div style="font-size:12px;color:var(--muted);">{{ w['duration_minutes'] ~ ' min' if w['duration_minutes'] else '' }}</div>
+        </div>
+      </div>
+      {% if row.unlocked %}
+        <a href="{{ url_for('member.workout_detail', workout_id=w['id']) }}" class="btn {{ 'btn-outline-dark' if row.done else 'btn-primary' }}" style="padding:9px 20px;">
+          {{ 'Completed ✓' if row.done else 'Start' }}
+        </a>
+      {% else %}
+        <span style="font-size:12px;color:var(--muted);">Locked</span>
+      {% endif %}
+    </div>
+  {% endfor %}
+  {% if not workout_rows %}
+  <p style="color:var(--muted);">Workouts for this program haven't been added yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
