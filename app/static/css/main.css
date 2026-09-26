@@ -163,6 +163,17 @@ button { font-family: inherit; }
 }
 .nav-links a:hover::after { right: 0; }
 .nav-right { display: flex; flex-shrink: 0; align-items: center; gap: 18px; }
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 6px;
+  margin-left: auto;
+}
 
 /* ---------- Hero ---------- */
 .hero {
@@ -217,7 +228,48 @@ button { font-family: inherit; }
 
 @media (max-width: 900px) {
   .grid-5, .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); }
-  .nav-links { display: none; }
+
+  /* Nav collapses to a hamburger + full-width dropdown instead of just
+     disappearing, so every page stays reachable on a phone. */
+  .nav { flex-wrap: wrap; }
+  .nav-toggle { display: inline-flex; order: 2; }
+  .nav-right { order: 3; gap: 12px; }
+  .nav-right .btn { padding: 10px 16px !important; }
+  .nav-links {
+    display: none;
+    order: 4;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    justify-content: flex-start;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links a { width: 100%; padding: 10px 0; }
+}
+
+@media (max-width: 640px) {
+  .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 30px; }
+
+  /* Member/coach dashboards: fixed 240px sidebar next to a flexed main
+     column doesn't fit a phone screen, so stack them instead. */
+  .app-shell { flex-direction: column; min-height: 0; }
+  .app-sidebar {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 16px 20px;
+  }
+  .app-sidebar > div { width: 100%; margin-bottom: 8px !important; }
+  .app-sidebar a { padding: 8px 12px; margin-bottom: 0; }
+  .app-main { padding: 28px 20px; }
 }
 
 /* ---------- Cards (glass) ---------- */
