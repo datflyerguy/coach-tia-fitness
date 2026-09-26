@@ -1,0 +1,33 @@
+{% extends "shared/base.html" %}
+{% block topbar %}{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <h1 style="font-size:26px;">Activate Your Product</h1>
+  <p style="color:var(--muted);margin-top:8px;">Scan the QR code on your FitBox or Resistance Bar packaging, or enter your activation code below.</p>
+
+  {% if result %}
+    {% if result.ok %}
+      <div class="alert alert-success" style="margin-top:22px;">
+        <strong>YOUR {{ result.program['name']|upper }} IS ACTIVATED &#128293;</strong>
+      </div>
+      <a href="{{ url_for('member.program_player', slug=result.program['slug']) }}" class="btn btn-primary" style="margin-top:6px;">Start Workout 1</a>
+    {% else %}
+      <div class="alert alert-error" style="margin-top:22px;">{{ result.error }}</div>
+    {% endif %}
+  {% endif %}
+
+  {% if not user %}
+    <p style="margin-top:22px;font-size:13.5px;color:var(--muted);">You'll need to log in or create an account first.</p>
+    <div style="display:flex;gap:12px;margin-top:14px;">
+      <a href="{{ url_for('public.login', next=url_for('member.activate')) }}" class="btn btn-primary">Log In</a>
+      <a href="{{ url_for('public.signup') }}" class="btn btn-outline-dark">Create Account</a>
+    </div>
+  {% else %}
+    <form method="post" style="margin-top:24px;">
+      <div class="field"><label>Activation Code</label><input type="text" name="code" placeholder="XXXX-XXXX-XXXX" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Activate</button>
+    </form>
+    <p style="text-align:center;margin-top:20px;"><a href="{{ url_for('member.dashboard') }}" style="font-size:13px;color:var(--muted);text-decoration:underline;">Back to Dashboard</a></p>
+  {% endif %}
+</div>
+{% endblock %}
