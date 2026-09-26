@@ -40,6 +40,14 @@ html, body {
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  /* Safety net: a couple of page sections use fixed two-column grids for
+     large headings/media, and a long unbreakable word can otherwise force
+     a grid track (and the whole page) wider than the viewport, letting the
+     user drag the page sideways on a phone. Those grids are fixed properly
+     below (minmax(0,1fr) + a mobile collapse), but this stays as a backstop
+     so nothing can ever cause horizontal drag again. */
+  overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -249,8 +257,19 @@ button { font-family: inherit; }
 .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); }
 .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); }
 
+/* Two-column "media + text" layouts (home/about hero, program detail,
+   checkout, tripwire). minmax(0,1fr) lets each track shrink below its
+   content's natural min-width — without it, a big heading or a long word
+   forces the track (and the whole page) wider than the screen, which is
+   what let the page be dragged sideways on mobile. */
+.split-2 { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 56px; align-items: center; }
+.split-2-detail { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 56px; }
+.split-2-media { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 40px; align-items: start; }
+.split-2-tight { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 10px; margin-top: 6px; }
+
 @media (max-width: 900px) {
   .grid-5, .grid-4, .grid-3 { grid-template-columns: 1fr; }
+  .split-2, .split-2-detail, .split-2-media { grid-template-columns: minmax(0,1fr); gap: 28px; }
   .footer-grid { grid-template-columns: 1fr; gap: 30px; }
 
   /* Nav collapses to a hamburger + full-width dropdown instead of just
