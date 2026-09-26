@@ -1,0 +1,23 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<section class="section-tight section-dark">
+  <div class="container">
+    <span class="eyebrow on-dark">REAL MEMBERS, REAL PROGRESS</span>
+    <h1 class="display" style="font-size:56px;margin-top:10px;">RESULTS</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container grid grid-3">
+    {% for i in range(1,7) %}
+    <div class="card">
+      <div class="card-media">[ TRANSFORMATION PHOTO {{ i }} ]</div>
+      <div class="card-body">
+        <span class="kicker">FITBOX MEMBER</span>
+        <h3>[Member Name]</h3>
+        <p>[Add this member's story once photo and quote are provided.]</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
