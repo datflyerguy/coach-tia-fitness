@@ -1,0 +1,14 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<section class="section">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+    <div class="card-media" style="height:460px;">[ COACH TIA — PORTRAIT ]</div>
+    <div>
+      <span class="eyebrow">ABOUT</span>
+      <h1 style="font-size:38px;margin-top:10px;line-height:1.15;">Built by a coach.<br>Engineered like a platform.</h1>
+      <p style="color:var(--muted);margin-top:18px;line-height:1.7;">[Coach Tia's bio and brand story go here — background, credentials, philosophy, and why Coach Tia Fitness exists.]</p>
+      <a href="{{ url_for('public.programs') }}" class="btn btn-primary" style="margin-top:24px;">Explore Programs</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
