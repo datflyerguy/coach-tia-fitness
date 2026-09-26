@@ -1,0 +1,10 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<section class="section" style="text-align:center;">
+  <div class="container">
+    <h1>Program not found</h1>
+    <p style="color:var(--muted);margin-top:10px;">We couldn't find a program at "{{ slug }}".</p>
+    <a href="{{ url_for('public.programs') }}" class="btn btn-primary" style="margin-top:20px;">View All Programs</a>
+  </div>
+</section>
+{% endblock %}
