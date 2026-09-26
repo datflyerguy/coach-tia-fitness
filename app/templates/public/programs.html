@@ -1,0 +1,29 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<section class="section-tight section-dark">
+  <div class="container">
+    <span class="eyebrow on-dark">THE FULL ECOSYSTEM</span>
+    <h1 class="display" style="font-size:56px;margin-top:10px;">PROGRAMS</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="grid grid-3">
+      {% for p in programs %}
+      <a class="card" href="{{ url_for('public.program_detail', slug=p['slug']) }}">
+        <div class="card-media">[ {{ p['name']|upper }} ]</div>
+        <div class="card-body">
+          <span class="kicker">{{ p['category']|replace('_',' ') }}</span>
+          <h3>{{ p['name'] }}</h3>
+          <p>{{ p['tagline'] or p['description'] or '' }}</p>
+          <span class="cta">EXPLORE &rarr;</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+    {% if not programs %}
+      <p style="color:var(--muted);">No programs are published yet — add some from the coach admin dashboard.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
