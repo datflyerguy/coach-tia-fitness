@@ -1,0 +1,14 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<div class="auth-shell">
+  <h1 style="font-size:28px;text-align:center;">Welcome Back</h1>
+  <p style="text-align:center;color:var(--muted);margin-top:8px;">Log in to your Coach Tia Fitness account.</p>
+  {% if error %}<div class="alert alert-error" style="margin-top:24px;">{{ error }}</div>{% endif %}
+  <form method="post" style="margin-top:24px;">
+    <div class="field"><label>Email</label><input type="email" name="email" required></div>
+    <div class="field"><label>Password</label><input type="password" name="password" required></div>
+    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+  </form>
+  <p style="text-align:center;margin-top:20px;font-size:14px;color:var(--muted);">No account yet? <a href="{{ url_for('public.signup') }}" style="text-decoration:underline;">Create one</a></p>
+</div>
+{% endblock %}
