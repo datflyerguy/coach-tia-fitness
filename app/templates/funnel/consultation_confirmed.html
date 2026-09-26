@@ -1,0 +1,20 @@
+{% extends "shared/funnel_base.html" %}
+{% block title %}Consultation Booked{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:64px;">
+  <div class="container" style="max-width:520px;text-align:center;">
+    <span class="eyebrow" style="justify-content:center;">YOU'RE BOOKED</span>
+    <h1 style="font-size:30px;margin-top:10px;">Your consultation is confirmed.</h1>
+    {% if booking %}
+    <div class="card" style="padding:28px;margin-top:28px;text-align:left;">
+      <div class="kicker">{{ booking.program_name }}</div>
+      <p style="font-size:22px;font-weight:700;margin-top:8px;color:var(--gold-soft);">
+        {{ booking.scheduled_at[:10] }} at {{ booking.scheduled_at[11:16] }}
+      </p>
+      <p style="color:var(--muted);font-size:13.5px;margin-top:12px;">Coach Tia will call the number you gave us. Nothing to prepare &mdash; just show up ready to talk about your goals.</p>
+    </div>
+    {% endif %}
+    <a href="{{ url_for('member.dashboard') }}" class="btn btn-primary" style="margin-top:28px;">Go to My Dashboard</a>
+  </div>
+</section>
+{% endblock %}
