@@ -1,0 +1,45 @@
+{% extends "shared/funnel_base.html" %}
+{% block title %}Checkout — {{ program.name }}{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:56px;">
+  <div class="container" style="max-width:920px;">
+    <div class="grid" style="grid-template-columns:1.1fr 1fr;gap:40px;align-items:start;">
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="card-media" style="height:260px;">[ {{ program.name|upper }} ]</div>
+        <div class="card-body">
+          <span class="kicker">{{ program.category|replace('_',' ') }}</span>
+          <h3 style="font-size:22px;">{{ program.name }}</h3>
+          <p style="margin-top:8px;">{{ program.description }}</p>
+          <ul style="margin-top:18px;color:var(--muted);font-size:14px;line-height:2;list-style:none;padding:0;">
+            <li>&#10003; Instant access after checkout</li>
+            <li>&#10003; {{ 'Sequential progression' if program.is_sequential else 'Train in any order' }}</li>
+            {% if program.is_membership %}<li>&#10003; Full library, new drops every month</li>{% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="padding:28px;">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:20px;">
+          <span style="font-size:34px;font-weight:700;color:var(--gold);">${{ '%.0f'|format(program.price_cents/100) if program.price_cents else '—' }}</span>
+          {% if program.is_membership %}<span style="font-size:13px;color:var(--muted);">/ month, cancel anytime</span>{% endif %}
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}<div class="alert alert-error" style="margin-bottom:16px;">{{ messages[0] }}</div>{% endif %}
+        {% endwith %}
+
+        <form method="post">
+          <div class="field"><label>Full Name</label><input type="text" name="name" value="{{ prefill_name }}" required></div>
+          <div class="field"><label>Email</label><input type="email" name="email" value="{{ prefill_email }}" required></div>
+          <div class="field">
+            <label>Card Number</label>
+            <input type="text" placeholder="4242 4242 4242 4242" disabled style="opacity:0.5;cursor:not-allowed;">
+            <p style="font-size:11px;color:var(--muted);margin-top:6px;">Demo checkout &mdash; no real payment is processed here yet.</p>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Complete Purchase</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
