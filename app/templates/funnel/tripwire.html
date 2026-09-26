@@ -1,0 +1,61 @@
+{% extends "shared/funnel_base.html" %}
+{% block title %}Protein Power Recipes — $27{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:56px;">
+  <div class="container" style="max-width:920px;">
+    <div style="text-align:center;margin-bottom:36px;">
+      <span class="eyebrow" style="justify-content:center;">YOU'RE IN &mdash; ONE MORE THING</span>
+      <h1 style="font-size:32px;margin-top:10px;">Since you're already training,<br>grab the recipes too.</h1>
+      <p style="color:var(--muted);max-width:520px;margin:14px auto 0;">The exact high-protein recipes Coach Tia uses with her own paying clients &mdash; quick, simple, built around real training. One-time purchase, yours forever.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1.1fr 1fr;gap:40px;align-items:start;">
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div class="card-media" style="height:260px;">[ PROTEIN POWER RECIPES ]</div>
+        <div class="card-body">
+          <h3 style="font-size:22px;">{{ program.name if program else "Protein Power Recipes" }}</h3>
+          <p style="margin-top:8px;">{{ program.description if program else "" }}</p>
+          <ul style="margin-top:18px;color:var(--muted);font-size:14px;line-height:2;list-style:none;padding:0;">
+            <li>&#10003; Instant digital access</li>
+            <li>&#10003; Built around real training days</li>
+            <li>&#10003; Yours for life &mdash; no subscription</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="padding:28px;">
+        <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:20px;">
+          <span style="font-size:34px;font-weight:700;color:var(--gold);">$27</span>
+          <span style="text-decoration:line-through;color:var(--muted);font-size:16px;">$37</span>
+          <span style="font-size:12px;color:var(--gold-soft);font-weight:700;letter-spacing:0.5px;">TODAY ONLY</span>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}<div class="alert alert-error" style="margin-bottom:16px;">{{ messages[0] }}</div>{% endif %}
+        {% endwith %}
+
+        <form method="post">
+          <div class="field"><label>Full Name</label><input type="text" name="name" value="{{ prefill_name }}" required></div>
+          <div class="field"><label>Email</label><input type="email" name="email" value="{{ prefill_email }}" required></div>
+          <div class="field">
+            <label>Card Number</label>
+            <input type="text" placeholder="4242 4242 4242 4242" disabled style="opacity:0.5;cursor:not-allowed;">
+            <p style="font-size:11px;color:var(--muted);margin-top:6px;">Demo checkout &mdash; no real payment is processed here yet.</p>
+          </div>
+
+          <label class="card" style="display:flex;gap:12px;padding:14px;margin:18px 0;cursor:pointer;background:var(--bg-2);">
+            <input type="checkbox" name="order_bump" style="margin-top:3px;">
+            <span style="font-size:13px;">
+              <strong style="color:var(--gold-soft);">Yes, add the Meal Prep Companion &mdash; just $10 more</strong><br>
+              <span style="color:var(--muted);">Printable shopping lists &amp; prep schedule for every recipe above.</span>
+            </span>
+          </label>
+
+          <button type="submit" class="btn btn-primary btn-block">Complete Purchase</button>
+        </form>
+        <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);"><a href="{{ url_for('member.dashboard') }}" style="color:var(--muted);">No thanks, take me to my Kickstart &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
