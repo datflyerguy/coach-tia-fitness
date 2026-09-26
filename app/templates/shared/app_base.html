@@ -1,0 +1,17 @@
+{% extends "shared/base.html" %}
+{% block topbar %}{% endblock %}
+{% block content %}
+<div class="app-shell">
+  <aside class="app-sidebar">
+    <div style="font-family:'Archivo',sans-serif;font-weight:900;font-size:16px;letter-spacing:1px;color:#fff;margin-bottom:28px;">MY ACCOUNT</div>
+    <a href="{{ url_for('member.dashboard') }}" class="{{ 'active' if active_nav == 'dashboard' else '' }}">Dashboard</a>
+    <a href="{{ url_for('member.activate') }}" class="{{ 'active' if active_nav == 'activate' else '' }}">Activate a Product</a>
+    <a href="{{ url_for('public.programs') }}">Browse Programs</a>
+    <a href="{{ url_for('public.logout') }}" style="margin-top:24px;color:#B7AFA3;">Log Out</a>
+  </aside>
+  <div class="app-main">
+    {% block app_content %}{% endblock %}
+  </div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
