@@ -1,0 +1,40 @@
+{% extends "shared/funnel_base.html" %}
+{% block title %}Wait — one-time offer{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:56px;">
+  <div class="container" style="max-width:720px;text-align:center;">
+    <span class="eyebrow" style="justify-content:center;">YOUR ORDER IS CONFIRMED</span>
+    <h1 style="font-size:32px;margin-top:10px;">Before you go &mdash; one-time upgrade.</h1>
+    <p style="color:var(--muted);max-width:520px;margin:14px auto 0;">You've got the recipes. Pair them with the program built to use them &mdash; Coach Tia FitBox, the complete 20-workout system &mdash; at a price only shown here, once.</p>
+  </div>
+
+  <div class="container" style="max-width:640px;margin-top:36px;">
+    {% if already_owns %}
+      <div class="card" style="padding:32px;text-align:center;">
+        <h3>You already own FitBox</h3>
+        <p style="margin-top:8px;color:var(--muted);">Head to your dashboard to keep training.</p>
+        <a href="{{ url_for('member.dashboard') }}" class="btn btn-primary" style="margin-top:20px;">Go to My Dashboard</a>
+      </div>
+    {% else %}
+      <div class="card" style="padding:32px;">
+        <div class="card-media" style="height:220px;">[ COACH TIA FITBOX ]</div>
+        <div style="margin-top:22px;">
+          <h3 style="font-size:22px;">{{ fitbox.name if fitbox else "Coach Tia FitBox" }}</h3>
+          <p style="margin-top:8px;color:var(--muted);">{{ fitbox.description if fitbox else "" }}</p>
+          <div style="display:flex;align-items:baseline;gap:10px;margin-top:20px;">
+            <span style="font-size:34px;font-weight:700;color:var(--gold);">$149</span>
+            <span style="text-decoration:line-through;color:var(--muted);font-size:16px;">$249</span>
+            <span style="font-size:12px;color:var(--gold-soft);font-weight:700;letter-spacing:0.5px;">ONE-TIME, THIS PAGE ONLY</span>
+          </div>
+          <form method="post" action="{{ url_for('funnel.fitbox_upsell_accept') }}" style="margin-top:24px;">
+            <button type="submit" class="btn btn-primary btn-block">Yes — Upgrade Me to FitBox</button>
+          </form>
+          <p style="text-align:center;margin-top:14px;">
+            <a href="{{ url_for('funnel.fitbox_upsell_decline') }}" style="font-size:13px;color:var(--muted);">No thanks, take me to my dashboard &rarr;</a>
+          </p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
