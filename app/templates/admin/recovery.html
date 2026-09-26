@@ -1,0 +1,29 @@
+{% extends "shared/admin_base.html" %}
+{% block admin_content %}
+<h1 style="font-size:26px;">Funnel Recovery</h1>
+<p style="color:var(--muted);margin-top:8px;max-width:640px;">Everyone who dropped off between funnel stages, computed live from leads and purchases. Until GHL automation is wired in, this is the work-list to call, text, or email by hand.</p>
+
+<h2 style="font-size:16px;margin-top:36px;margin-bottom:6px;">Opted in, never bought Protein Power Recipes</h2>
+<p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Feeds the tripwire nurture sequence.</p>
+<div>
+  {% for l in segments.opted_in_no_purchase %}
+  <div class="workout-row">
+    <div><div style="font-weight:600;">{{ l['name'] }}</div><div style="font-size:12px;color:var(--muted);">{{ l['email'] }}</div></div>
+    <span style="font-size:12px;color:var(--muted);">opted in {{ l['created_at'] }}</span>
+  </div>
+  {% endfor %}
+  {% if not segments.opted_in_no_purchase %}<p style="color:var(--muted);font-size:13px;">Nobody in this segment right now.</p>{% endif %}
+</div>
+
+<h2 style="font-size:16px;margin-top:36px;margin-bottom:6px;">Bought Protein Power Recipes, never upgraded to FitBox</h2>
+<p style="font-size:12px;color:var(--muted);margin-bottom:14px;">Feeds the FitBox nurture sequence.</p>
+<div>
+  {% for u in segments.bought_no_upgrade %}
+  <div class="workout-row">
+    <div><div style="font-weight:600;">{{ u['name'] }}</div><div style="font-size:12px;color:var(--muted);">{{ u['email'] }}</div></div>
+    <span style="font-size:12px;color:var(--muted);">joined {{ u['created_at'] }}</span>
+  </div>
+  {% endfor %}
+  {% if not segments.bought_no_upgrade %}<p style="color:var(--muted);font-size:13px;">Nobody in this segment right now.</p>{% endif %}
+</div>
+{% endblock %}
