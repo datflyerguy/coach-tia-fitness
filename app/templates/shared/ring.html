@@ -1,0 +1,15 @@
+{# Usage: {% include "shared/ring.html" %} with percent and size in context,
+   or call via macro below. #}
+{% macro progress_ring(percent, size=96, stroke=8) %}
+{% set r = (size / 2) - (stroke * 1.5) %}
+{% set circumference = 2 * 3.14159265 * r %}
+{% set offset = circumference - (percent / 100 * circumference) %}
+<div class="ring-wrap" style="width:{{ size }}px;height:{{ size }}px;">
+  <svg width="{{ size }}" height="{{ size }}" viewBox="0 0 {{ size }} {{ size }}">
+    <circle class="ring-bg" cx="{{ size/2 }}" cy="{{ size/2 }}" r="{{ r }}" stroke-width="{{ stroke }}"></circle>
+    <circle class="ring-fg" cx="{{ size/2 }}" cy="{{ size/2 }}" r="{{ r }}" stroke-width="{{ stroke }}"
+      stroke-dasharray="{{ circumference }}" stroke-dashoffset="{{ offset }}"></circle>
+  </svg>
+  <div class="ring-label">{{ percent }}%</div>
+</div>
+{% endmacro %}
