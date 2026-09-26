@@ -1,0 +1,26 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<section class="section-tight section-dark">
+  <div class="container">
+    <span class="eyebrow on-dark">EQUIPMENT</span>
+    <h1 class="display" style="font-size:56px;margin-top:10px;">SHOP</h1>
+    <p class="lede">Premium training equipment, paired with guided digital programs.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container grid grid-3">
+    <a class="card" href="{{ url_for('public.program_detail', slug='fitbox') }}">
+      <div class="card-media">[ FITBOX EQUIPMENT ]</div>
+      <div class="card-body"><span class="kicker">EQUIPMENT + PROGRAM</span><h3>Coach Tia FitBox</h3><p>Your gym. Your program. Your results.</p></div>
+    </a>
+    <a class="card" href="{{ url_for('public.program_detail', slug='resistance-bar') }}">
+      <div class="card-media">[ RESISTANCE BAR SYSTEM ]</div>
+      <div class="card-body"><span class="kicker">EQUIPMENT + PROGRAM</span><h3>Resistance Bar System</h3><p>Four-phase strength progression, anywhere.</p></div>
+    </a>
+    <div class="card">
+      <div class="card-media">[ APPAREL — COMING SOON ]</div>
+      <div class="card-body"><span class="kicker">COMING SOON</span><h3>Coach Tia Apparel</h3><p>Training gear, launching soon.</p></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
