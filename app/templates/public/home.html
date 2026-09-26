@@ -1,0 +1,118 @@
+{% extends "shared/base.html" %}
+{% block content %}
+
+<section class="hero">
+  <canvas id="hero-canvas" class="hero-canvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> COLUMBUS, OHIO &nbsp;·&nbsp; FIT 2 WIN</div>
+    <span class="eyebrow">COACH TIA FITNESS</span>
+    <h1 class="display" style="margin-top:16px;">TRAIN WITH<br><span class="gold-text">A CHAMPION.</span></h1>
+    <p class="lede">Coach Tia is a professional bodybuilder and decorated champion — winner of the WNBF Tri-State Bodybuilding Championships, the NOBA Women's Overall Figure Championship, and more. Train with her anywhere, on any device, with structured programs and real accountability.</p>
+    <div class="actions">
+      <a href="{{ url_for('public.programs') }}" class="btn btn-primary">Start Training</a>
+      <a href="{{ url_for('public.programs') }}" class="btn btn-outline-light">Explore Programs</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">THE ECOSYSTEM</span>
+        <h2>CHOOSE HOW YOU TRAIN</h2>
+      </div>
+      <a href="{{ url_for('public.programs') }}" class="cta" style="font-size:12px;font-weight:700;letter-spacing:1px;color:var(--gold-soft);">VIEW ALL PROGRAMS &rarr;</a>
+    </div>
+    <div class="grid grid-4">
+      {% for p in featured[:8] %}
+      <a class="card reveal" href="{{ url_for('public.program_detail', slug=p['slug']) }}" style="transition-delay: {{ loop.index0 * 0.05 }}s;">
+        <div class="card-media">[ {{ p['name']|upper }} ]</div>
+        <div class="card-body">
+          <span class="kicker">{{ p['category']|replace('_',' ') }}</span>
+          <h3>{{ p['name'] }}</h3>
+          <p>{{ p['tagline'] or '' }}</p>
+          <span class="cta">EXPLORE &rarr;</span>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<div class="band">CHAMPIONSHIP TRAINING <span class="sep">•</span> REAL ACCOUNTABILITY <span class="sep">•</span> RESULTS THAT LAST</div>
+
+<section class="section section-dim">
+  <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;">
+    <div class="card-media reveal" style="height:440px;border-radius:var(--radius);border:1px solid var(--line);">[ COACH TIA — STUDIO / TRAINING PHOTO ]</div>
+    <div class="reveal">
+      <span class="eyebrow">WHY COACH TIA FITNESS</span>
+      <h2 style="font-size:36px;margin-top:12px;line-height:1.15;">This isn't a personal trainer's website.<br>It's a fitness technology platform.</h2>
+      <p style="color:var(--muted);font-size:15px;margin-top:18px;max-width:480px;line-height:1.75;">Every program — digital or physical — comes with structured progression, real progress tracking, and a member dashboard that adapts to everything you own. Train at home, at the gym, virtually, or personally with Coach Tia.</p>
+      <a href="{{ url_for('public.about') }}" class="btn btn-outline-light" style="margin-top:26px;">About Coach Tia</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dim">
+  <div class="container">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">WINNER CIRCLE</span>
+        <h2>REAL PEOPLE. REAL RESULTS.</h2>
+      </div>
+    </div>
+    <div class="grid grid-3">
+      <div class="card reveal">
+        <div class="card-media">[ TRANSFORMATION — CLIENT 01 ]</div>
+        <div class="card-body">
+          <span class="kicker">FitBox · 12 weeks</span>
+          <h3>&ldquo;Down 24 lbs and stronger than ever.&rdquo;</h3>
+          <p>Structured programming and a coach who actually checks in — that's what made it stick this time.</p>
+        </div>
+      </div>
+      <div class="card reveal" style="transition-delay:0.05s;">
+        <div class="card-media">[ TRANSFORMATION — CLIENT 02 ]</div>
+        <div class="card-body">
+          <span class="kicker">Glute Growth · 16 weeks</span>
+          <h3>&ldquo;Finally saw the progress I trained for.&rdquo;</h3>
+          <p>The progression scheme took the guesswork out of every single workout.</p>
+        </div>
+      </div>
+      <div class="card reveal" style="transition-delay:0.1s;">
+        <div class="card-media">[ TRANSFORMATION — CLIENT 03 ]</div>
+        <div class="card-body">
+          <span class="kicker">Virtual Coaching · 10 weeks</span>
+          <h3>&ldquo;Championship-level coaching, from home.&rdquo;</h3>
+          <p>Real accountability and real expertise, without ever setting foot in her gym.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container" style="text-align:center;">
+    <span class="eyebrow" style="justify-content:center;">MEMBER DASHBOARD</span>
+    <h2 style="margin-top:10px;font-size:34px;">EVERYTHING YOU OWN. ONE DASHBOARD.</h2>
+    <p style="color:var(--muted);max-width:520px;margin:14px auto 0;">FitBox, Resistance Bar, Glute Growth, Coach Tia+ — own one or all of them. Your dashboard shows exactly where you left off.</p>
+    <div class="grid grid-3 reveal" style="margin-top:44px;text-align:left;max-width:680px;margin-left:auto;margin-right:auto;">
+      <div class="stat-card">
+        <div class="num"><span data-countup="73" data-suffix="%">73%</span></div>
+        <div class="label">FitBox Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="num"><span data-countup="12">12</span></div>
+        <div class="label">Day Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="num"><span data-countup="4">4</span></div>
+        <div class="label">Active Programs</div>
+      </div>
+    </div>
+    <a href="{{ url_for('public.signup') }}" class="btn btn-primary" style="margin-top:40px;">Create Your Account</a>
+  </div>
+</section>
+
+{% endblock %}
