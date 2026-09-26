@@ -1,0 +1,64 @@
+{% extends "shared/app_base.html" %}
+{% set active_nav = 'dashboard' %}
+{% from "shared/ring.html" import progress_ring %}
+{% block app_content %}
+<h1 style="font-size:28px;">Welcome back{{ ', ' ~ logged_in_user['name'] if logged_in_user else '' }}.</h1>
+
+{% if upcoming_consultations %}
+{% for c in upcoming_consultations %}
+<div class="card" style="margin-top:24px;padding:20px 24px;border-color:var(--gold);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;">
+  <div>
+    <span class="kicker" style="color:var(--gold-soft);">CONSULTATION BOOKED &mdash; {{ c['program_name']|upper }}</span>
+    <p style="margin-top:6px;font-size:15px;">{{ c['scheduled_at'][:10] }} at {{ c['scheduled_at'][11:16] }} &mdash; Coach Tia will call you.</p>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="grid grid-3" style="margin-top:28px;max-width:640px;">
+  <div class="stat-card">
+    <div class="num">{{ streak }}</div>
+    <div class="label">Day Streak</div>
+    <div class="streak-row" style="margin-top:12px;">
+      {% for i in range(7) %}
+        <div class="streak-dot {{ 'lit' if i < (streak if streak < 7 else 7) else '' }}"></div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="stat-card">
+    <div class="num">{{ programs|length }}</div>
+    <div class="label">Active Programs</div>
+  </div>
+  <div class="stat-card">
+    <div class="num">{{ programs|sum(attribute='completed_workouts') }}</div>
+    <div class="label">Workouts Completed</div>
+  </div>
+</div>
+
+<h2 style="font-size:20px;margin-top:44px;margin-bottom:18px;">Your Programs</h2>
+
+{% if programs %}
+<div class="grid grid-3">
+  {% for p in programs %}
+  <a class="card" href="{{ url_for('member.program_player', slug=p['slug']) }}">
+    <div class="card-body" style="display:flex;gap:18px;align-items:center;">
+      {{ progress_ring(p['percent_complete'], 76, 7) }}
+      <div>
+        <span class="kicker">{{ p['category']|replace('_',' ') }}</span>
+        <h3 style="font-size:17px;">{{ p['name'] }}</h3>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px;">{{ p['completed_workouts'] }} / {{ p['total_workouts'] }} workouts</div>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% else %}
+<div class="stat-card" style="max-width:520px;">
+  <p style="color:var(--muted);font-size:14px;line-height:1.7;">You don't have any active programs yet. If you have a FitBox or Resistance Bar, activate it below — or browse programs to get started.</p>
+  <div style="display:flex;gap:12px;margin-top:18px;">
+    <a href="{{ url_for('member.activate') }}" class="btn btn-primary">Activate a Product</a>
+    <a href="{{ url_for('public.programs') }}" class="btn btn-outline-dark">Browse Programs</a>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
