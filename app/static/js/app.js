@@ -6,21 +6,35 @@ document.addEventListener("DOMContentLoaded", () => {
   // .js-ready guard in main.css) — otherwise they're plain visible content.
   document.documentElement.classList.add("js-ready");
 
-  // Mobile nav: hamburger toggles the nav-links dropdown open/closed.
+  // Mobile nav: the top hamburger and the bottom tab bar's "More" button
+  // both open the same nav-links dropdown.
   const navToggle = document.getElementById("nav-toggle");
   const navLinks = document.getElementById("nav-links");
-  if (navToggle && navLinks) {
-    const openIcon = navToggle.querySelector(".nav-toggle-open");
-    const closeIcon = navToggle.querySelector(".nav-toggle-close");
+  const bottomMore = document.getElementById("bottom-nav-more");
+  if (navLinks && (navToggle || bottomMore)) {
+    const openIcon = navToggle ? navToggle.querySelector(".nav-toggle-open") : null;
+    const closeIcon = navToggle ? navToggle.querySelector(".nav-toggle-close") : null;
     const setOpen = (open) => {
       navLinks.classList.toggle("open", open);
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (navToggle) navToggle.setAttribute("aria-expanded", open ? "true" : "false");
       if (openIcon) openIcon.style.display = open ? "none" : "";
       if (closeIcon) closeIcon.style.display = open ? "" : "none";
+      if (bottomMore) bottomMore.classList.toggle("active", open);
     };
-    navToggle.addEventListener("click", () => {
-      setOpen(!navLinks.classList.contains("open"));
-    });
+    if (navToggle) {
+      navToggle.addEventListener("click", () => {
+        setOpen(!navLinks.classList.contains("open"));
+      });
+    }
+    if (bottomMore) {
+      // The drawer lives under the top nav, so if the page is scrolled
+      // down, scroll back up first or the opened menu wouldn't be visible.
+      bottomMore.addEventListener("click", () => {
+        const willOpen = !navLinks.classList.contains("open");
+        if (willOpen) window.scrollTo({ top: 0, behavior: "smooth" });
+        setOpen(willOpen);
+      });
+    }
     // Close after picking a link, and on resize back to desktop width.
     navLinks.querySelectorAll("a").forEach((a) => {
       a.addEventListener("click", () => setOpen(false));
