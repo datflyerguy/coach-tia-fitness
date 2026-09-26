@@ -1,0 +1,9 @@
+{% extends "shared/app_base.html" %}
+{% block app_content %}
+<h1 style="font-size:24px;">You don't have access to this program</h1>
+<p style="color:var(--muted);margin-top:10px;">If you own this product, activate it below — otherwise take a look at our full program list.</p>
+<div style="display:flex;gap:12px;margin-top:20px;">
+  <a href="{{ url_for('member.activate') }}" class="btn btn-primary">Activate a Product</a>
+  <a href="{{ url_for('public.programs') }}" class="btn btn-outline-dark">Browse Programs</a>
+</div>
+{% endblock %}
