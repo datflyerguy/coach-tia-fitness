@@ -20,7 +20,13 @@
   {% block nav %}
   <nav class="nav">
     <a class="nav-logo" href="{{ url_for('public.home') }}">COACH TIA <span>FITNESS</span></a>
-    <div class="nav-links">
+    <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="nav-toggle-open" d="M3 6h16M3 11h16M3 16h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        <path class="nav-toggle-close" d="M5 5l12 12M17 5L5 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" style="display:none;"/>
+      </svg>
+    </button>
+    <div class="nav-links" id="nav-links">
       <a href="{{ url_for('public.programs') }}">Programs</a>
       <a href="{{ url_for('public.program_detail', slug='fitbox') }}">FitBox</a>
       <a href="{{ url_for('public.program_detail', slug='glute-growth') }}">Glute Growth</a>
