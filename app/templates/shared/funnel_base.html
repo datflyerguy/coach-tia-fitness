@@ -1,0 +1,17 @@
+{% extends "shared/base.html" %}
+{# Distraction-free shell for funnel pages (lead magnet, checkout, upsell):
+   no nav links out, no footer sitemap — nothing competing with the one
+   action on the page. #}
+{% block topbar %}{% endblock %}
+{% block nav %}
+<nav class="nav" style="justify-content:center;border-bottom:1px solid var(--line);">
+  <a class="nav-logo" href="{{ url_for('public.home') }}">COACH TIA <span>FITNESS</span></a>
+</nav>
+{% endblock %}
+{% block footer %}
+<footer class="footer" style="padding:32px 0;">
+  <div class="container" style="text-align:center;">
+    <span style="font-size:12px;color:var(--muted);">&copy; 2026 Coach Tia Fitness. All rights reserved.</span>
+  </div>
+</footer>
+{% endblock %}
