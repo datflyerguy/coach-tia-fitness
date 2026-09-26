@@ -5,8 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ brand_name }}{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <!-- Fonts load non-blocking: the page renders immediately with fallback
+       fonts, then swaps to the webfonts once they arrive. A plain
+       rel="stylesheet" here would make the browser wait on two round trips
+       to Google's servers (the CSS, then the font files) before showing
+       anything — on a phone's mobile connection that round-trip latency is
+       exactly what feels like "loading too long". The media="print" trick
+       loads the stylesheet without blocking render, then onload flips it
+       to apply; noscript covers browsers with JS disabled. -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@500;600;700&family=Work+Sans:wght@400;500;600&display=swap"></noscript>
   <!-- PWA groundwork: manifest + theme color. Icons/service worker to follow
        once real production imagery/hosting is in place. -->
   <link rel="manifest" href="{{ url_for('static', filename='manifest.webmanifest') }}">
