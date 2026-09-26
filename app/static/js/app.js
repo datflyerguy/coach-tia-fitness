@@ -6,6 +6,30 @@ document.addEventListener("DOMContentLoaded", () => {
   // .js-ready guard in main.css) — otherwise they're plain visible content.
   document.documentElement.classList.add("js-ready");
 
+  // Mobile nav: hamburger toggles the nav-links dropdown open/closed.
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.getElementById("nav-links");
+  if (navToggle && navLinks) {
+    const openIcon = navToggle.querySelector(".nav-toggle-open");
+    const closeIcon = navToggle.querySelector(".nav-toggle-close");
+    const setOpen = (open) => {
+      navLinks.classList.toggle("open", open);
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      if (openIcon) openIcon.style.display = open ? "none" : "";
+      if (closeIcon) closeIcon.style.display = open ? "" : "none";
+    };
+    navToggle.addEventListener("click", () => {
+      setOpen(!navLinks.classList.contains("open"));
+    });
+    // Close after picking a link, and on resize back to desktop width.
+    navLinks.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => setOpen(false));
+    });
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 900) setOpen(false);
+    });
+  }
+
   // Scroll-reveal
   const revealEls = document.querySelectorAll(".reveal");
   if (revealEls.length && "IntersectionObserver" in window) {
