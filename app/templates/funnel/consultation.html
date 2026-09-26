@@ -1,0 +1,57 @@
+{% extends "shared/funnel_base.html" %}
+{% block title %}Book Your Consultation — {{ program.name }}{% endblock %}
+{% block content %}
+<section class="section" style="padding-top:56px;">
+  <div class="container" style="max-width:640px;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <span class="eyebrow" style="justify-content:center;">{{ program.category|replace('_',' ')|upper }}</span>
+      <h1 style="font-size:30px;margin-top:10px;">{{ program.name }}</h1>
+      <p style="color:var(--muted);max-width:480px;margin:14px auto 0;">{{ program.description }} This is high-touch coaching, so it starts with a real conversation, not a checkout button. Answer a few questions and pick a time &mdash; Coach Tia will come to the call already knowing your goals.</p>
+      {% if program.price_cents %}<p style="margin-top:14px;color:var(--gold);font-weight:700;font-size:20px;">${{ '%.0f'|format(program.price_cents/100) }}</p>{% endif %}
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<div class="alert alert-error">{{ messages[0] }}</div>{% endif %}
+    {% endwith %}
+
+    <div class="card" style="padding:32px;">
+      <form method="post">
+        <div class="field"><label>Full Name</label><input type="text" name="name" value="{{ prefill_name }}" required></div>
+        <div class="field"><label>Email</label><input type="email" name="email" value="{{ prefill_email }}" required></div>
+        <div class="field"><label>Phone</label><input type="tel" name="phone" placeholder="(614) 555-0100" required></div>
+        <div class="field">
+          <label>Experience Level</label>
+          <select name="experience_level" required>
+            <option value="">Select one</option>
+            <option value="beginner">Beginner &mdash; just getting started</option>
+            <option value="intermediate">Intermediate &mdash; trained consistently before</option>
+            <option value="advanced">Advanced &mdash; competitive / long-term lifter</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>What's your main goal?</label>
+          <textarea name="goal" rows="3" placeholder="e.g. Compete in my first show, lose 20 lbs before my wedding, build strength after an injury..." required></textarea>
+        </div>
+
+        <div class="field">
+          <label>Pick a Consultation Time</label>
+          {% if slots %}
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+            {% for s in slots %}
+            <label class="card" style="padding:12px 14px;cursor:pointer;font-size:13.5px;display:flex;align-items:center;gap:10px;background:var(--bg-2);">
+              <input type="radio" name="slot" value="{{ s.isoformat() }}" {{ 'required' if loop.first }}>
+              <span>{{ s.strftime('%a, %b %-d') }}<br><strong style="color:var(--gold-soft);">{{ s.strftime('%-I:%M %p') }}</strong></span>
+            </label>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p style="color:var(--muted);font-size:13px;">No open slots right now &mdash; check back soon.</p>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" style="margin-top:22px;" {{ 'disabled' if not slots }}>Book My Consultation</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
