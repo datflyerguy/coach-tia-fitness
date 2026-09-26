@@ -1,0 +1,38 @@
+{% extends "shared/admin_base.html" %}
+{% block admin_content %}
+<div style="display:flex;justify-content:space-between;align-items:center;">
+  <h1 style="font-size:26px;">Overview</h1>
+  <a href="{{ url_for('admin.new_program') }}" class="btn btn-primary">+ New Program</a>
+</div>
+
+<div class="grid grid-3" style="margin-top:24px;max-width:640px;">
+  <div class="stat-card"><div class="num">{{ programs|length }}</div><div class="label">Programs</div></div>
+  <div class="stat-card"><div class="num">{{ member_count }}</div><div class="label">Members</div></div>
+  <div class="stat-card"><div class="num">{{ workout_count }}</div><div class="label">Total Workouts</div></div>
+</div>
+
+<h2 style="font-size:18px;margin-top:40px;margin-bottom:14px;">Programs</h2>
+<div>
+  {% for p in programs %}
+  <a href="{{ url_for('admin.program_detail', program_id=p['id']) }}" class="workout-row" style="text-decoration:none;">
+    <div>
+      <div style="font-weight:600;">{{ p['name'] }}</div>
+      <div style="font-size:12px;color:var(--muted);">{{ p['category']|replace('_',' ') }} {{ '· inactive' if not p['active'] else '' }}</div>
+    </div>
+    <span style="font-size:12px;color:var(--muted);">Manage &rarr;</span>
+  </a>
+  {% endfor %}
+  {% if not programs %}<p style="color:var(--muted);">No programs yet — add your first one.</p>{% endif %}
+</div>
+
+<h2 style="font-size:18px;margin-top:40px;margin-bottom:14px;">Recent Signups</h2>
+<div>
+  {% for m in recent_members %}
+  <div class="workout-row">
+    <div><div style="font-weight:600;">{{ m['name'] }}</div><div style="font-size:12px;color:var(--muted);">{{ m['email'] }}</div></div>
+    <span style="font-size:12px;color:var(--muted);">{{ m['created_at'] }}</span>
+  </div>
+  {% endfor %}
+  {% if not recent_members %}<p style="color:var(--muted);">No members yet.</p>{% endif %}
+</div>
+{% endblock %}
