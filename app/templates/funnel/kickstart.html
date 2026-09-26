@@ -1,0 +1,44 @@
+{% extends "shared/funnel_base.html" %}
+{% block title %}Free 5-Day Kickstart — Coach Tia Fitness{% endblock %}
+{% block content %}
+<section class="hero" style="min-height:auto;padding:64px 0 56px;">
+  <canvas id="hero-canvas" class="hero-canvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-content" style="max-width:720px;">
+    <div class="hero-badge"><span class="dot"></span> FREE &nbsp;·&nbsp; NO CARD REQUIRED</div>
+    <h1 class="display" style="margin-top:16px;font-size:44px;">TRAIN LIKE A<br><span class="gold-text">CHAMPION, FREE.</span></h1>
+    <p class="lede">Coach Tia's actual 5-Day Kickstart — the same warm-up-to-finisher structure she builds every real program around. Enter your name and email and it unlocks instantly, no card, no catch.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container" style="max-width:480px;">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}<div class="alert alert-error" style="margin-bottom:20px;">{{ messages[0] }}</div>{% endif %}
+    {% endwith %}
+    <div class="card" style="padding:32px;">
+      <form method="post">
+        <div class="field"><label>First Name</label><input type="text" name="name" required></div>
+        <div class="field"><label>Email</label><input type="email" name="email" required></div>
+        <button type="submit" class="btn btn-primary btn-block">Unlock My Free 5-Day Kickstart</button>
+      </form>
+      <p style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted);">No spam. Unsubscribe anytime.</p>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:40px;text-align:center;">
+      <div>
+        <div class="eyebrow" style="justify-content:center;">DAY 1&ndash;5</div>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Real structure, not a random workout dump.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="justify-content:center;">20 MIN / DAY</div>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Built to fit around your schedule.</p>
+      </div>
+      <div>
+        <div class="eyebrow" style="justify-content:center;">NO EQUIPMENT</div>
+        <p style="font-size:13px;color:var(--muted);margin-top:6px;">Start today with what you already have.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
