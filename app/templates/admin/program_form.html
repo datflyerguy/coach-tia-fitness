@@ -1,0 +1,27 @@
+{% extends "shared/admin_base.html" %}
+{% block admin_content %}
+<h1 style="font-size:24px;">New Program</h1>
+{% if error %}<div class="alert alert-error" style="margin-top:18px;">{{ error }}</div>{% endif %}
+<form method="post" style="margin-top:24px;max-width:480px;">
+  <div class="field"><label>Name</label><input type="text" name="name" placeholder="Coach Tia FitBox" required></div>
+  <div class="field"><label>Slug (URL)</label><input type="text" name="slug" placeholder="fitbox" required></div>
+  <div class="field">
+    <label>Category</label>
+    <select name="category" required>
+      <option value="fitbox">FitBox</option>
+      <option value="resistance_bar">Resistance Bar</option>
+      <option value="glute_growth">Glute Growth</option>
+      <option value="glute_growth_academy">Glute Growth Academy</option>
+      <option value="coach_tia_plus">Coach Tia+</option>
+      <option value="virtual_coaching">Virtual Coaching</option>
+      <option value="train_with_tia">Train With Tia</option>
+    </select>
+  </div>
+  <div class="field"><label>Tagline</label><input type="text" name="tagline" placeholder="Your gym. Your program. Your results."></div>
+  <div class="field"><label>Description</label><textarea name="description" rows="4"></textarea></div>
+  <div class="field"><label>Price (USD, optional)</label><input type="number" step="0.01" name="price_dollars" placeholder="149.00"></div>
+  <div class="field"><label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;"><input type="checkbox" name="is_sequential" checked style="width:auto;"> Workouts unlock sequentially</label></div>
+  <div class="field"><label style="display:flex;align-items:center;gap:8px;text-transform:none;letter-spacing:0;"><input type="checkbox" name="is_membership" style="width:auto;"> Recurring membership</label></div>
+  <button type="submit" class="btn btn-primary">Create Program</button>
+</form>
+{% endblock %}
