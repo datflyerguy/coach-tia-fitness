@@ -40,15 +40,14 @@ html, body {
   font-size: 16px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  /* Safety net: a couple of page sections use fixed two-column grids for
-     large headings/media, and a long unbreakable word can otherwise force
-     a grid track (and the whole page) wider than the viewport, letting the
-     user drag the page sideways on a phone. Those grids are fixed properly
-     below (minmax(0,1fr) + a mobile collapse), but this stays as a backstop
-     so nothing can ever cause horizontal drag again. */
-  overflow-x: hidden;
-  width: 100%;
 }
+
+/* NOTE: do not add `overflow-x: hidden` to html/body. It looks like a safe
+   horizontal-scroll backstop, but on iOS Safari it breaks `position: fixed`
+   elements (like .bottom-nav below) — they scroll away with the page instead
+   of staying pinned to the screen. The two-column grids that used to cause
+   horizontal overflow are fixed properly at the source instead (minmax(0,1fr)
+   + a mobile collapse, see .split-2* below). */
 
 h1, h2, h3, h4 {
   font-family: 'Space Grotesk', sans-serif;
