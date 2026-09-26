@@ -1,0 +1,52 @@
+{% extends "shared/admin_base.html" %}
+{% block admin_content %}
+<a href="{{ url_for('admin.dashboard') }}" style="font-size:12.5px;color:var(--muted);text-decoration:underline;">&larr; Overview</a>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+  <h1 style="font-size:24px;">{{ program['name'] }}</h1>
+  <a href="{{ url_for('public.program_detail', slug=program['slug']) }}" class="btn btn-outline-dark" target="_blank" rel="noopener">View Public Page</a>
+</div>
+
+<h2 style="font-size:17px;margin-top:32px;">Workouts</h2>
+<div style="margin-top:14px;max-width:640px;">
+  {% for w in workouts %}
+  <div class="workout-row">
+    <div style="display:flex;gap:14px;align-items:center;">
+      <span class="workout-num">{{ '%02d'|format(w['order_index']) }}</span>
+      <div style="font-weight:600;">{{ w['title'] }}</div>
+    </div>
+    <span style="font-size:12px;color:var(--muted);">{{ w['duration_minutes'] ~ ' min' if w['duration_minutes'] else '' }}</span>
+  </div>
+  {% endfor %}
+  {% if not workouts %}<p style="color:var(--muted);">No workouts yet.</p>{% endif %}
+</div>
+
+<form method="post" action="{{ url_for('admin.add_workout', program_id=program['id']) }}" style="margin-top:20px;max-width:480px;">
+  <div class="field"><label>Workout Title</label><input type="text" name="title" placeholder="Workout {{ (workouts|length) + 1 }}: Lower Body Power" required></div>
+  <div class="field"><label>Description</label><textarea name="description" rows="2"></textarea></div>
+  <div style="display:flex;gap:12px;">
+    <div class="field" style="flex:1;"><label>Video URL</label><input type="text" name="video_url" placeholder="https://..."></div>
+    <div class="field" style="width:140px;"><label>Duration (min)</label><input type="number" name="duration_minutes"></div>
+  </div>
+  <button type="submit" class="btn btn-outline-dark">Add Workout</button>
+</form>
+
+<h2 style="font-size:17px;margin-top:44px;">FitBox / Equipment Activation Codes</h2>
+<form method="post" action="{{ url_for('admin.create_codes', program_id=program['id']) }}" style="margin-top:14px;max-width:480px;display:flex;gap:12px;align-items:end;">
+  <div class="field" style="width:100px;margin-bottom:0;"><label>How Many</label><input type="number" name="count" value="10" min="1" max="200"></div>
+  <div class="field" style="flex:1;margin-bottom:0;"><label>Batch Note</label><input type="text" name="batch_note" placeholder="Sept 2026 print run"></div>
+  <button type="submit" class="btn btn-primary" style="margin-bottom:18px;">Generate</button>
+</form>
+
+<div style="margin-top:18px;max-width:640px;max-height:340px;overflow-y:auto;">
+  {% for c in codes %}
+  <div class="workout-row {{ 'done' if c['is_redeemed'] else '' }}">
+    <div>
+      <div style="font-weight:600;font-family:monospace;">{{ c['code'] }}</div>
+      <div style="font-size:12px;color:var(--muted);">{{ c['batch_note'] or '' }}</div>
+    </div>
+    <span style="font-size:12px;color:var(--muted);">{{ 'Redeemed' if c['is_redeemed'] else 'Unused' }}</span>
+  </div>
+  {% endfor %}
+  {% if not codes %}<p style="color:var(--muted);">No activation codes generated yet.</p>{% endif %}
+</div>
+{% endblock %}
