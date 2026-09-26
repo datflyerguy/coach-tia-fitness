@@ -1,0 +1,31 @@
+{% extends "shared/base.html" %}
+{% block content %}
+<section class="section-tight section-dark">
+  <div class="container">
+    <span class="eyebrow on-dark">COACH TIA+</span>
+    <h1 class="display" style="font-size:56px;margin-top:10px;">MEMBERSHIP</h1>
+    <p class="lede">One recurring membership. The full training library, new workouts monthly, and direct access to Coach Tia.</p>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="grid grid-3">
+      <div class="card"><div class="card-body">
+        <span class="kicker">MONTHLY</span><h3>Coach Tia+</h3>
+        <p>Full workout library, new drops every month, progress tracking.</p>
+        <a href="{{ url_for('public.signup') }}" class="btn btn-outline-dark btn-block" style="margin-top:16px;">Join Monthly</a>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span class="kicker">ANNUAL</span><h3>Coach Tia+ Annual</h3>
+        <p>Everything in monthly, two months free, priority check-ins.</p>
+        <a href="{{ url_for('public.signup') }}" class="btn btn-primary btn-block" style="margin-top:16px;">Join Annual</a>
+      </div></div>
+      <div class="card"><div class="card-body">
+        <span class="kicker">PREMIUM</span><h3>Glute Growth Academy</h3>
+        <p>Structured glute transformation with live coaching and accountability.</p>
+        <a href="{{ url_for('public.program_detail', slug='glute-growth-academy') }}" class="btn btn-outline-dark btn-block" style="margin-top:16px;">Learn More</a>
+      </div></div>
+    </div>
+  </div>
+</section>
+{% endblock %}
