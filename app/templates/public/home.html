@@ -5,34 +5,30 @@
   <canvas id="hero-canvas" class="hero-canvas"></canvas>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span> COLUMBUS, OHIO &nbsp;·&nbsp; FIT 2 WIN</div>
-    <span class="eyebrow">COACH TIA FITNESS</span>
-    <h1 class="display" style="margin-top:16px;">TRAIN WITH<br><span class="gold-text">A CHAMPION.</span></h1>
-    <p class="lede">Coach Tia is a professional bodybuilder and decorated champion — winner of the WNBF Tri-State Bodybuilding Championships, the NOBA Women's Overall Figure Championship, and more. Train with her anywhere, on any device, with structured programs and real accountability.</p>
-    <div class="actions">
-      <a href="{{ url_for('public.programs') }}" class="btn btn-primary">Start Training</a>
-      <a href="{{ url_for('public.programs') }}" class="btn btn-outline-light">Explore Programs</a>
-    </div>
-  </div>
-</section>
-
-<section class="section section-dim">
-  <div class="container split-2-media reveal">
-    <div>
-      <span class="hero-badge"><span class="dot"></span> FREE &nbsp;·&nbsp; NO CARD REQUIRED</span>
-      <h2 style="font-size:32px;line-height:1.15;">Not ready to commit? Start with the free 5-Day Kickstart.</h2>
-      <p style="color:var(--muted);font-size:15px;margin-top:16px;max-width:440px;line-height:1.7;">The same warm-up-to-finisher structure Coach Tia builds every real program around — 20 minutes a day, no equipment, unlocks instantly.</p>
-    </div>
-    <div class="card" style="padding:28px;">
-      {% with messages = get_flashed_messages() %}
-        {% if messages %}<div class="alert alert-error" style="margin-bottom:16px;">{{ messages[0] }}</div>{% endif %}
-      {% endwith %}
-      <form method="post" action="{{ url_for('funnel.kickstart') }}">
-        <div class="field"><label>First Name</label><input type="text" name="name" required></div>
-        <div class="field"><label>Email</label><input type="email" name="email" required></div>
-        <button type="submit" class="btn btn-primary btn-block">Unlock My Free 5-Day Kickstart</button>
-      </form>
-      <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">No spam. Unsubscribe anytime.</p>
+    <div class="split-2-media">
+      <div>
+        <div class="hero-badge"><span class="dot"></span> COLUMBUS, OHIO &nbsp;·&nbsp; FIT 2 WIN</div>
+        <span class="eyebrow">COACH TIA FITNESS</span>
+        <h1 class="display" style="margin-top:16px;">TRAIN WITH<br><span class="gold-text">A CHAMPION.</span></h1>
+        <p class="lede">Coach Tia is a professional bodybuilder and decorated champion — winner of the WNBF Tri-State Bodybuilding Championships, the NOBA Women's Overall Figure Championship, and more. Train with her anywhere, on any device, with structured programs and real accountability.</p>
+        <div class="actions">
+          <a href="{{ url_for('public.programs') }}" class="btn btn-primary">Start Training</a>
+          <a href="{{ url_for('public.programs') }}" class="btn btn-outline-light">Explore Programs</a>
+        </div>
+      </div>
+      <div class="card" style="padding:28px;">
+        <span class="hero-badge"><span class="dot"></span> FREE &nbsp;·&nbsp; NO CARD REQUIRED</span>
+        <h2 style="font-size:22px;line-height:1.2;margin-top:8px;">Not ready to commit? Start with the free 5-Day Kickstart.</h2>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}<div class="alert alert-error" style="margin-top:16px;">{{ messages[0] }}</div>{% endif %}
+        {% endwith %}
+        <form method="post" action="{{ url_for('funnel.kickstart') }}" style="margin-top:18px;">
+          <div class="field"><label>First Name</label><input type="text" name="name" required></div>
+          <div class="field"><label>Email</label><input type="email" name="email" required></div>
+          <button type="submit" class="btn btn-primary btn-block">Unlock My Free 5-Day Kickstart</button>
+        </form>
+        <p style="text-align:center;margin-top:14px;font-size:12px;color:var(--muted);">No spam. Unsubscribe anytime.</p>
+      </div>
     </div>
   </div>
 </section>
